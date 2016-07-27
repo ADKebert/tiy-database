@@ -11,6 +11,7 @@ class PersonManager
     puts "Add a person to the database (A)"
     puts "Search for a person (S)"
     puts "Delete a person from the database (D)"
+    puts "Type (E) when you are finished"
     gets.chomp.downcase
   end
 
@@ -33,7 +34,7 @@ class PersonManager
   def add_new_person
     puts "What is the person's name?"
     @our_database << Person.new(gets.chomp)
-    # add_details_to_person(@our_database[-1])
+    add_details_to_person(@our_database[-1])
   end
 
   def search_for_a_person(name)
@@ -75,12 +76,23 @@ class PersonManager
       @our_database.delete(target)
       puts "#{target.name} was removed from the database"
     end
-    p @our_database
+  end
+
+  def interact_with_the_db
+    done = false
+    while !done
+      case prompt_for_desired_action
+      when 'a'
+        add_new_person
+      when 's'
+        search_prompt
+      when 'd'
+        remove_a_person
+      else
+        done = true
+      end
+    end
   end
 end
 
-testing = PersonManager.new
-testing.add_new_person
-testing.search_prompt
-testing.search_prompt
-testing.remove_a_person
+PersonManager.new.interact_with_the_db
