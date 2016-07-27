@@ -30,4 +30,13 @@ class PersonManager
     person.github_account = gets.chomp
   end
 
+  def add_new_person
+    puts "What is the person's name?"
+    @our_database << Person.new(gets.chomp)
+    # add_details_to_person(@our_database[-1])
+    p @our_database
+  end
+
 end
+
+PersonManager.new.add_new_person
