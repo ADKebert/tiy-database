@@ -4,5 +4,4 @@ class Person
   def initialize(name)
     self.name = name
   end
-
 end

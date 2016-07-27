@@ -37,6 +37,38 @@ class PersonManager
     p @our_database
   end
 
+  def search_for_a_person(name)
+    for person in @our_database
+      if person.name == name
+        return person
+      end
+    end
+    return "not found"
+  end
+
+  def describe_a_person(person)
+    puts "Name: #{person.name}"
+    puts "Phone Number: #{person.phone_number}"
+    puts "Address: #{person.address}"
+    puts "Position: #{person.position}"
+    puts "Salary: #{person.salary}"
+    puts "Slack Account: #{person.slack_account}"
+    puts "Github Account: #{person.github_account}"
+  end
+
+  def search_prompt
+    puts "What is the name of the person you would like to search for?"
+    name = gets.chomp
+    target = search_for_a_person(name)
+    if target == "not found"
+      puts "That person was not found"
+    else
+      describe_a_person(target)
+    end
+  end
 end
 
-PersonManager.new.add_new_person
+testing = PersonManager.new
+testing.add_new_person
+testing.search_prompt
+testing.search_prompt
