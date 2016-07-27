@@ -34,7 +34,6 @@ class PersonManager
     puts "What is the person's name?"
     @our_database << Person.new(gets.chomp)
     # add_details_to_person(@our_database[-1])
-    p @our_database
   end
 
   def search_for_a_person(name)
@@ -66,9 +65,22 @@ class PersonManager
       describe_a_person(target)
     end
   end
+
+  def remove_a_person
+    puts "What is the name of the person you would like to delete from the database?"
+    target = search_for_a_person(gets.chomp)
+    if target == "not found"
+      puts "That person was not found"
+    else
+      @our_database.delete(target)
+      puts "#{target.name} was removed from the database"
+    end
+    p @our_database
+  end
 end
 
 testing = PersonManager.new
 testing.add_new_person
 testing.search_prompt
 testing.search_prompt
+testing.remove_a_person
