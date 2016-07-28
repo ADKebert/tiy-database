@@ -3,7 +3,7 @@ require_relative 'person'
 class PersonManager
 
   def initialize
-    @our_database = []
+    @people = []
   end
 
   def prompt_for_desired_action
@@ -33,17 +33,14 @@ class PersonManager
 
   def add_new_person
     puts "What is the person's name?"
-    @our_database << Person.new(gets.chomp)
-    add_details_to_person(@our_database[-1])
+    @people << Person.new(gets.chomp)
+    add_details_to_person(@people[-1])
   end
 
   def search_for_a_person(name)
-    for person in @our_database
-      if person.name == name
-        return person
-      end
+    @people.select do |person|
+      person.name == name
     end
-    return "not found"
   end
 
   def describe_a_person(person)
@@ -59,22 +56,31 @@ class PersonManager
   def search_prompt
     puts "What is the name of the person you would like to search for?"
     name = gets.chomp
-    target = search_for_a_person(name)
-    if target == "not found"
+    targets = search_for_a_person(name)
+    if targets.empty?
       puts "That person was not found"
     else
-      describe_a_person(target)
+      targets.each do |target|
+        describe_a_person(target)
+      end
     end
   end
 
   def remove_a_person
     puts "What is the name of the person you would like to delete from the database?"
-    target = search_for_a_person(gets.chomp)
-    if target == "not found"
+    targets = search_for_a_person(gets.chomp)
+    if targets.empty?
       puts "That person was not found"
     else
-      @our_database.delete(target)
-      puts "#{target.name} was removed from the database"
+      targets.each do |target|
+        describe_a_person(target)
+        puts "remove this person? (y/n)"
+        response = gets.chomp
+        if response == 'y'
+          @people.delete(target)
+          puts "#{target.name} was removed from the database"
+        end
+      end
     end
   end
 
