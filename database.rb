@@ -16,18 +16,18 @@ class PersonManager
   end
 
   def add_details_to_person(person)
-    POLITENESS = "Please enter #{person.name}'s"
-    puts "#{POLITENESS} phone number"
+    politeness = "Please enter #{person.name}'s"
+    puts "#{politeness} phone number"
     person.phone_number = gets.chomp
-    puts "#{POLITENESS} address"
+    puts "#{politeness} address"
     person.address = gets.chomp
-    puts "#{POLITENESS} position"
+    puts "#{politeness} position"
     person.position = gets.chomp
-    puts "#{POLITENESS} salary"
+    puts "#{politeness} salary"
     person.salary = gets.chomp
-    puts "#{POLITENESS} slack account"
+    puts "#{politeness} slack account"
     person.slack_account = gets.chomp
-    puts "#{POLITENESS} github account"
+    puts "#{politeness} github account"
     person.github_account = gets.chomp
   end
 
